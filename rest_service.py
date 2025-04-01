@@ -10,4 +10,5 @@ def get_test():
 def upload_csv_to_db():
     db = DbConnection()
     db.create_challenge_database()
-    return {'message': 'Database created!'}
+    db.create_challenge_tables()
+    return {'message': 'Database and tables created!'}
