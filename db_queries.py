@@ -4,10 +4,10 @@ class DbQueries:
                                    "id INT AUTO_INCREMENT PRIMARY KEY, " + \
                                    "employee_name VARCHAR(200)," + \
                                    "hire_date DATETIME," + \
-                                   "job_id INT NOT NULL," + \
                                    "department_id INT NOT NULL," + \
-                                   "FOREIGN KEY (job_id) REFERENCES jobs(id)," + \
+                                   "job_id INT NOT NULL," + \
                                    "FOREIGN KEY (department_id) REFERENCES departments(id)" + \
+                                   "FOREIGN KEY (job_id) REFERENCES jobs(id)," + \
                                    ")"
     CREATE_DEPARTMENTS_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS departments " + \
                                      "(" + \
