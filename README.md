@@ -16,3 +16,4 @@ La base de datos se llama challenge_db y esta no es necesario crearla previament
 
 Se adjunta adicionalmente el Dockerfile para poder desplegar su respectiva imagen en un contenedor.
 
+Por otro lado, se adjunta en la carpeta querys la solución del ejercicio 2.
