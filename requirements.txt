@@ -3,3 +3,4 @@ uvicorn
 pymysql
 pyspark
 pandas
+cryptography
