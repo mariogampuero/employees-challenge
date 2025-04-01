@@ -7,7 +7,7 @@ app = FastAPI()
 
 spark = SparkSession.builder \
     .appName("Globant Challenge") \
-    .config("spark.jars", "file:///C:/Spark/spark-3.5.5-bin-hadoop3/jars/mysql-connector-j-9.2.0.jar") \
+    .config("spark.jars", "../spark/mysql-connector-j-9.2.0.jar") \
     .getOrCreate()
 @app.get("/")
 def get_test():
