@@ -1,7 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 from db_connection import DbConnection
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StructField, IntegerType, StringType, DateType
 from utils import Utils
 from constants import Constants
 app = FastAPI()
@@ -24,34 +23,14 @@ async def upload_csv_to_db(file: UploadFile = File(...), table: str = None):
     temporary_path = await utils.create_temporary_file(file)
     match table:
         case Constants.DEPARTMENTS_TABLE:
-            schema = StructType([
-                StructField("id", IntegerType(), True),
-                StructField("department", StringType(), True),
-            ])
+            schema = utils.get_departments_schema()
         case Constants.JOBS_TABLE:
-            schema = StructType([
-                StructField("id", IntegerType(), True),
-                StructField("job", StringType(), True),
-            ])
+            schema = utils.get_jobs_schema()
         case Constants.EMPLOYEES_TABLE:
-            schema = StructType([
-                StructField("id", IntegerType(), True),
-                StructField("employee_name", StringType(), True),
-                StructField("hire_date", DateType(), True),
-                StructField("job_id", IntegerType(), True),
-                StructField("department_id", IntegerType(), True),
-            ])
+            schema = utils.get_employees_schema()
         case _:
             return {'error': 'Must provide a table name'}
 
     df = spark.read.csv(temporary_path, header=False, inferSchema=False, schema=schema)
-    df.write \
-        .format("jdbc") \
-        .option("url", "jdbc:mysql://localhost:3306/challenge_db") \
-        .option("dbtable", table) \
-        .option("user", "root") \
-        .option("password", "root") \
-        .option("batchsize", 1000) \
-        .mode("append") \
-        .save()
+    utils.write_dataframe_to_mysql_database(df, table)
     return {'status': 'OK', 'message': f'CSV written into {table} Table'}
