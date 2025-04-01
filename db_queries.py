@@ -3,7 +3,7 @@ class DbQueries:
     CREATE_EMPLOYEES_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS employees (" + \
                                    "id INT AUTO_INCREMENT PRIMARY KEY, " + \
                                    "employee_name VARCHAR(200)," + \
-                                   "hire_date DATETIME NOT NULL," + \
+                                   "hire_date DATETIME," + \
                                    "job_id INT NOT NULL," + \
                                    "department_id INT NOT NULL," + \
                                    "FOREIGN KEY (job_id) REFERENCES jobs(id)," + \
