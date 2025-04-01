@@ -21,15 +21,14 @@ async def upload_csv_to_db(file: UploadFile = File(...), table: str = None):
     db.create_challenge_database()
     db.create_challenge_tables()
     temporary_path = await utils.create_temporary_file(file)
-    match table:
-        case Constants.DEPARTMENTS_TABLE:
+    if table == Constants.DEPARTMENTS_TABLE:
             schema = utils.get_departments_schema()
-        case Constants.JOBS_TABLE:
+    elif table == Constants.JOBS_TABLE:
             schema = utils.get_jobs_schema()
-        case Constants.EMPLOYEES_TABLE:
+    elif table == Constants.EMPLOYEES_TABLE:
             schema = utils.get_employees_schema()
-        case _:
-            return {'error': 'Must provide a table name'}
+    else:
+        return {'error': 'Must provide a table name'}
 
     df = spark.read.csv(temporary_path, header=False, inferSchema=False, schema=schema)
     utils.write_dataframe_to_mysql_database(df, table)
