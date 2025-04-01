@@ -2,8 +2,8 @@ class DbQueries:
     CREATE_DATABASE_QUERY = "CREATE DATABASE IF NOT EXISTS challenge_db"
     CREATE_EMPLOYEES_TABLE_QUERY = "CREATE TABLE IF NOT EXISTS employees (" + \
                                    "id INT AUTO_INCREMENT PRIMARY KEY, " + \
-                                   "employee_name VARCHAR(100)," + \
-                                   "hire_date VARCHAR(100) UNIQUE NOT NULL," + \
+                                   "employee_name VARCHAR(200)," + \
+                                   "hire_date DATETIME NOT NULL," + \
                                    "job_id INT NOT NULL," + \
                                    "department_id INT NOT NULL," + \
                                    "FOREIGN KEY (job_id) REFERENCES jobs(id)," + \
